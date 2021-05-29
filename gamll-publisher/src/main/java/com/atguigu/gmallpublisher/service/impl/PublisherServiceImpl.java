@@ -1,7 +1,8 @@
-package com.atguigu.gamllpublisher.service.impl;
+package com.atguigu.gmallpublisher.service.impl;
 
-import com.atguigu.gamllpublisher.mapper.DauMapper;
-import com.atguigu.gamllpublisher.service.PublisherService;
+import com.atguigu.gmallpublisher.mapper.DauMapper;
+import com.atguigu.gmallpublisher.mapper.OrderMapper;
+import com.atguigu.gmallpublisher.service.PublisherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,9 @@ public class PublisherServiceImpl implements PublisherService {
 
     @Autowired
     private DauMapper dauMapper;
+
+    @Autowired
+    private OrderMapper orderMapper;
 
     @Override
     public Integer getDauTotal(String date) {
@@ -31,6 +35,27 @@ public class PublisherServiceImpl implements PublisherService {
         //3.遍历list集合获取到每个map,并将数据重组成新的map
         for (Map map : list) {
             result.put((String) map.get("LH"), (Long) map.get("CT"));
+        }
+
+        return result;
+    }
+
+    @Override
+    public Double getGmvTotal(String date) {
+        return orderMapper.selectOrderAmountTotal(date);
+    }
+
+    @Override
+    public Map<String, Double> getGmvHourTotal(String date) {
+        //1.获取数据（Mapper层）
+        List<Map> list = orderMapper.selectOrderAmountHourMap(date);
+
+        //2.创建map集合用来存放结果数据
+        HashMap<String, Double> result = new HashMap<>();
+
+        //3.遍历list集合获取到每个map,并将数据重组成新的map
+        for (Map map : list) {
+            result.put((String) map.get("CREATE_HOUR"), (Double) map.get("SUM_AMOUNT"));
         }
 
         return result;
