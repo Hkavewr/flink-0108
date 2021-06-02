@@ -80,7 +80,6 @@ object AlterApp {
 
     //8.生成预警日志
     val alertDStream: DStream[CouponAlertInfo] = boolToAlertDStream.filter(_._1).map(_._2)
-
     alertDStream.print()
 
     //9.将预警日志写入ES
@@ -93,10 +92,8 @@ object AlterApp {
       }
       )
     })
-
     //10.开启任务
     ssc.start()
     ssc.awaitTermination()
   }
-
 }
