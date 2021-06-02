@@ -10,6 +10,7 @@ import io.searchbox.core.search.aggregation.MaxAggregation;
 import io.searchbox.core.search.aggregation.MetricAggregation;
 import io.searchbox.core.search.aggregation.TermsAggregation;
 import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.MatchQueryBuilder;
 import org.elasticsearch.index.query.TermQueryBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.bucket.terms.TermsAggregationBuilder;
@@ -46,8 +47,9 @@ public class Es_Read_02 {
         boolQueryBuilder.filter(termQueryBuilder);
 
         //TODO must
-        TermQueryBuilder termQueryBuilder1 = new TermQueryBuilder("favo", "球");
-        boolQueryBuilder.must(termQueryBuilder1);
+//        TermQueryBuilder termQueryBuilder1 = new TermQueryBuilder("favo", "球");
+        MatchQueryBuilder matchQueryBuilder = new MatchQueryBuilder("favo", "羽毛球");
+        boolQueryBuilder.must(matchQueryBuilder);
 
         //TODO query
         sourceBuilder.query(boolQueryBuilder);

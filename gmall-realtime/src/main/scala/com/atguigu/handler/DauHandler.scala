@@ -91,6 +91,7 @@ object DauHandler {
 
       //4.过滤数据
       val filterRDD: RDD[StartUpLog] = startUpLog.filter(log => {
+
         val bool: Boolean = midsBC.value.contains(log.mid)
         !bool
       })
