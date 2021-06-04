@@ -99,11 +99,11 @@ public class CanalClient {
             }
             System.out.println(jsonObject.toString());
             //模拟网络延迟，会随机睡0-5秒
-            try {
-                Thread.sleep(new Random().nextInt(5)*1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+//            try {
+//                Thread.sleep(new Random().nextInt(5)*1000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
             MyKafkaSender.send(topic, jsonObject.toString());
         }
     }
